@@ -1,6 +1,7 @@
 import { component$ } from "@builder.io/qwik";
 import { Form, Link, routeAction$, z, zod$ } from "@builder.io/qwik-city";
 import { createServerClient } from "supabase-auth-helpers-qwik";
+import { Alert } from "~/components/ui/alert";
 import { Button } from "~/components/ui/button";
 
 export const useLogin = routeAction$(
@@ -37,13 +38,9 @@ export default component$(() => {
     <div class={"min-h-screen h-full grid place-items-center bg-gray-100"}>
       <div class="max-w-xs w-full mx-auto">
         {action.value?.message && (
-          <div
-            class={
-              "text-danger bg-danger/10 rounded py-2 px-4 text-center mb-4"
-            }
-          >
+          <Alert status="warning" class={"mb-4"}>
             {action.value?.message}
-          </div>
+          </Alert>
         )}
         <Form
           action={action}
