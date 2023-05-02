@@ -43,7 +43,7 @@ export default function Signup() {
 
         <div class={"p-6  text-center border shadow bg-white rounded-lg mt-6"}>
           <span class={"text-gray-500"}>Already have an account?</span>
-          <Link href="/login" class={"text-primary hover:underline"}>
+          <Link href="/login" class={"text-primary hover:text-primary/80"}>
             {" "}
             Log in
           </Link>

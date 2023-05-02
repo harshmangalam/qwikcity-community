@@ -19,7 +19,16 @@ export default function Login() {
             />
           </div>
           <div class={"flex flex-col space-y-2"}>
-            <label for="password">Password</label>
+            <div class={"flex items-center justify-between"}>
+              <label for="password">Password</label>
+              <Link
+                href="/forgot-password"
+                class={"text-primary text-sm hover:text-primary/80"}
+              >
+                Forgot password
+              </Link>
+            </div>
+
             <input
               name="password"
               id="password"
@@ -38,8 +47,8 @@ export default function Login() {
         </form>
 
         <div class={"p-6  text-center border shadow bg-white rounded-lg mt-6"}>
-          <span class={"text-gray-500"}>New to Community ?</span>
-          <Link href="/signup" class={"text-primary hover:underline"}>
+          <span class={"text-gray-500"}>Don't have an account?</span>
+          <Link href="/signup" class={"text-primary hover:text-primary/80"}>
             {" "}
             Sign up
           </Link>
