@@ -78,8 +78,9 @@ export default component$(() => {
           </div>
 
           <button
+            disabled={action.isRunning}
             class={
-              "bg-primary text-white text-sm font-semibold px-4 py-2 rounded"
+              "bg-primary text-white text-sm font-semibold px-4 py-2 rounded disabled:bg-primary/70"
             }
           >
             Sign up
