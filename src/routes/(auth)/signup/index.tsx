@@ -1,6 +1,7 @@
 import { component$ } from "@builder.io/qwik";
 import { Form, Link, routeAction$, z, zod$ } from "@builder.io/qwik-city";
 import { createServerClient } from "supabase-auth-helpers-qwik";
+import { LuLoader2 } from "@qwikest/icons/lucide";
 export const useSignup = routeAction$(
   async (form, event) => {
     const supabaseClient = createServerClient(
@@ -80,10 +81,14 @@ export default component$(() => {
           <button
             disabled={action.isRunning}
             class={
-              "bg-primary text-white text-sm font-semibold px-4 py-2 rounded disabled:bg-primary/70"
+              "bg-primary text-white text-sm font-semibold h-10 grid place-items-center rounded disabled:bg-primary/70"
             }
           >
-            Sign up
+            {action.isRunning ? (
+              <LuLoader2 class={"w-6 h-6 animate-spin"} />
+            ) : (
+              " Sign up"
+            )}
           </button>
         </Form>
 
