@@ -6,6 +6,8 @@ module.exports = {
       colors: {
         primary: "rgb(0, 149, 246)",
         danger: "rgb(237, 73, 86)",
+        success: "rgb(88, 195, 34)",
+        warning: "hsl(40, 89%, 52%)",
       },
     },
   },
