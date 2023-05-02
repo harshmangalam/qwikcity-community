@@ -1,6 +1,6 @@
 import { Link } from "@builder.io/qwik-city";
 
-export default function Login() {
+export default function Signup() {
   return (
     <div class={"min-h-screen h-full grid place-items-center bg-gray-100"}>
       <div class="max-w-xs w-full mx-auto">
@@ -10,21 +10,25 @@ export default function Login() {
           }
         >
           <div class={"flex flex-col space-y-2"}>
+            <label for="name">Name</label>
+            <input class={"rounded py-1"} type="text" name="name" id="name" />
+          </div>
+          <div class={"flex flex-col space-y-2"}>
             <label for="email">Email address</label>
             <input
-              name="email"
-              id="email"
               class={"rounded py-1"}
               type="email"
+              name="email"
+              id="email"
             />
           </div>
           <div class={"flex flex-col space-y-2"}>
             <label for="password">Password</label>
             <input
-              name="password"
-              id="password"
               class={"rounded py-1"}
               type="password"
+              name="password"
+              id="password"
             />
           </div>
 
@@ -33,15 +37,15 @@ export default function Login() {
               "bg-primary text-white text-sm font-semibold px-4 py-2 rounded"
             }
           >
-            Log in
+            Sign up
           </button>
         </form>
 
         <div class={"p-6  text-center border shadow bg-white rounded-lg mt-6"}>
-          <span class={"text-gray-500"}>New to Community ?</span>
-          <Link href="/signup" class={"text-primary hover:underline"}>
+          <span class={"text-gray-500"}>Already have an account?</span>
+          <Link href="/login" class={"text-primary hover:underline"}>
             {" "}
-            Sign up
+            Log in
           </Link>
         </div>
       </div>
