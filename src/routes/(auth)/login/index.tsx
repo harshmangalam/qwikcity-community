@@ -57,8 +57,9 @@ export default component$(() => {
               id="email"
               class={"rounded py-1"}
               type="email"
+              required
             />
-            <span class={"text-sm text-red-500"}>
+            <span class={"text-sm text-danger"}>
               {action.value?.fieldErrors?.email}
             </span>
           </div>
@@ -78,8 +79,9 @@ export default component$(() => {
               id="password"
               class={"rounded py-1"}
               type="password"
+              required
             />
-            <span class={"text-sm text-red-500"}>
+            <span class={"text-sm text-danger"}>
               {action.value?.fieldErrors?.password}
             </span>
           </div>

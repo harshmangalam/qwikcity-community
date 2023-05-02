@@ -1,6 +1,7 @@
 import { component$ } from "@builder.io/qwik";
 import { Form, Link, routeAction$, z, zod$ } from "@builder.io/qwik-city";
 import { createServerClient } from "supabase-auth-helpers-qwik";
+import { Alert } from "~/components/ui/alert";
 
 import { Button } from "~/components/ui/button";
 export const useSignup = routeAction$(
@@ -23,7 +24,7 @@ export const useSignup = routeAction$(
 
     if (error)
       return event.fail(400, {
-        error: error.message,
+        message: error.message,
       });
 
     throw event.redirect(303, "/login");
@@ -41,6 +42,12 @@ export default component$(() => {
   return (
     <div class={"min-h-screen h-full grid place-items-center bg-gray-100"}>
       <div class="max-w-xs w-full mx-auto">
+        {action.value?.message && (
+          <Alert status="error" class={"mb-4"}>
+            {/* @ts-ignore */}
+            {action.value?.message}
+          </Alert>
+        )}
         <Form
           action={action}
           class={
@@ -56,7 +63,7 @@ export default component$(() => {
               name="name"
               id="name"
             />
-            <span class={"text-sm text-red-500"}>
+            <span class={"text-sm text-danger"}>
               {action.value?.fieldErrors?.name}
             </span>
           </div>
@@ -69,7 +76,7 @@ export default component$(() => {
               id="email"
               required
             />
-            <span class={"text-sm text-red-500"}>
+            <span class={"text-sm text-danger"}>
               {action.value?.fieldErrors?.email}
             </span>
           </div>
@@ -82,7 +89,7 @@ export default component$(() => {
               id="password"
               required
             />
-            <span class={"text-sm text-red-500"}>
+            <span class={"text-sm text-danger"}>
               {action.value?.fieldErrors?.password}
             </span>
           </div>
