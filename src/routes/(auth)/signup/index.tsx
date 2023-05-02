@@ -48,7 +48,13 @@ export default component$(() => {
         >
           <div class={"flex flex-col space-y-2"}>
             <label for="name">Name</label>
-            <input class={"rounded py-1"} type="text" name="name" id="name" />
+            <input
+              required
+              class={"rounded py-1"}
+              type="text"
+              name="name"
+              id="name"
+            />
             <span class={"text-sm text-red-500"}>
               {action.value?.fieldErrors?.name}
             </span>
@@ -60,6 +66,7 @@ export default component$(() => {
               type="email"
               name="email"
               id="email"
+              required
             />
             <span class={"text-sm text-red-500"}>
               {action.value?.fieldErrors?.email}
@@ -72,6 +79,7 @@ export default component$(() => {
               type="password"
               name="password"
               id="password"
+              required
             />
             <span class={"text-sm text-red-500"}>
               {action.value?.fieldErrors?.password}
