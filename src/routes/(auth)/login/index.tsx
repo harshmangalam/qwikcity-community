@@ -37,8 +37,10 @@ export default component$(() => {
   return (
     <div class={"min-h-screen h-full grid place-items-center bg-gray-100"}>
       <div class="max-w-xs w-full mx-auto">
+        {/* @ts-ignore */}
         {action.value?.message && (
-          <Alert status="warning" class={"mb-4"}>
+          <Alert status="error" class={"mb-4"}>
+            {/* @ts-ignore */}
             {action.value?.message}
           </Alert>
         )}
