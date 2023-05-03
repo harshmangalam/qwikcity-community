@@ -2,9 +2,51 @@ import { component$ } from "@builder.io/qwik";
 import { Form, Link, routeAction$, z, zod$ } from "@builder.io/qwik-city";
 import { Alert } from "~/components/ui/alert";
 import { Button } from "~/components/ui/button";
+import { prisma } from "~/lib/prisma";
+import { comparePassword, signToken } from "~/utils";
 
 export const useLogin = routeAction$(
-  async (form, event) => {},
+  async (form, { fail, redirect, env, cookie }) => {
+    // verify user email
+    const user = await prisma.user.findUnique({
+      where: {
+        email: form.email,
+      },
+      select: {
+        id: true,
+        email: true,
+        password: true,
+      },
+    });
+
+    if (!user)
+      return fail(400, {
+        message: "Invalid credentails",
+      });
+
+    // match plain and hashed password
+
+    const match = await comparePassword(form.password, user.password);
+    if (!match)
+      return fail(400, {
+        message: "Invalid credentails",
+      });
+
+    // create jwt token
+
+    const accessToken = await signToken(
+      { userId: user.id },
+      env.get("JWT_SECRET") as string
+    );
+
+    // add access token in browser cookies
+
+    cookie.set("accessToken", accessToken);
+
+    // redirect to hoem page
+
+    throw redirect(303, "/");
+  },
   zod$({
     email: z.string().email("Email must be valid email address"),
     password: z.string().nonempty("Password must be required"),
