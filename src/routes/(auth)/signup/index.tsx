@@ -4,8 +4,11 @@ import { Form, Link, routeAction$, z, zod$ } from "@builder.io/qwik-city";
 import { Alert } from "~/components/ui/alert";
 
 import { Button } from "~/components/ui/button";
+
 export const useSignup = routeAction$(
-  async (form, event) => {},
+  async (form, event) => {
+    // check if email already exists
+  },
   zod$({
     name: z.string().nonempty("Name must be required"),
     email: z.string().email("Email must be valid email address"),
