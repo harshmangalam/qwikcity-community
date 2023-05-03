@@ -1,31 +1,10 @@
 import { component$ } from "@builder.io/qwik";
 import { Form, Link, routeAction$, z, zod$ } from "@builder.io/qwik-city";
-import { createServerClient } from "supabase-auth-helpers-qwik";
 import { Alert } from "~/components/ui/alert";
 import { Button } from "~/components/ui/button";
 
 export const useLogin = routeAction$(
-  async (form, event) => {
-    const supabaseClient = createServerClient(
-      import.meta.env.VITE_SUPABASE_URL,
-      import.meta.env.VITE_SUPABASE_ANON_KEY,
-      event
-    );
-
-    const { data, error } = await supabaseClient.auth.signInWithPassword({
-      email: form.email,
-      password: form.password,
-    });
-
-    console.log(data);
-    console.log(error);
-
-    if (error)
-      return event.fail(400, {
-        message: error.message,
-      });
-    return {};
-  },
+  async (form, event) => {},
   zod$({
     email: z.string().email("Email must be valid email address"),
     password: z.string().nonempty("Password must be required"),

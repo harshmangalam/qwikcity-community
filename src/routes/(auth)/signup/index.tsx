@@ -1,34 +1,11 @@
 import { component$ } from "@builder.io/qwik";
 import { Form, Link, routeAction$, z, zod$ } from "@builder.io/qwik-city";
-import { createServerClient } from "supabase-auth-helpers-qwik";
+
 import { Alert } from "~/components/ui/alert";
 
 import { Button } from "~/components/ui/button";
 export const useSignup = routeAction$(
-  async (form, event) => {
-    const supabaseClient = createServerClient(
-      import.meta.env.VITE_SUPABASE_URL,
-      import.meta.env.VITE_SUPABASE_ANON_KEY,
-      event
-    );
-
-    const { error } = await supabaseClient.auth.signUp({
-      email: form.email,
-      password: form.password,
-      options: {
-        data: {
-          name: form.name,
-        },
-      },
-    });
-
-    if (error)
-      return event.fail(400, {
-        message: error.message,
-      });
-
-    throw event.redirect(303, "/login");
-  },
+  async (form, event) => {},
   zod$({
     name: z.string().nonempty("Name must be required"),
     email: z.string().email("Email must be valid email address"),
