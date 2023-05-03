@@ -4,10 +4,38 @@ import { Form, Link, routeAction$, z, zod$ } from "@builder.io/qwik-city";
 import { Alert } from "~/components/ui/alert";
 
 import { Button } from "~/components/ui/button";
+import { prisma } from "~/lib/prisma";
+import { createPasswordHash } from "~/utils";
 
 export const useSignup = routeAction$(
-  async (form, event) => {
+  async (form, { fail, redirect }) => {
     // check if email already exists
+    const user = await prisma.user.findUnique({
+      where: {
+        email: form.email,
+      },
+      select: {
+        email: true,
+      },
+    });
+
+    if (user)
+      return fail(400, {
+        message: "User already exists",
+      });
+
+    // hash password
+
+    const hashedPassword = await createPasswordHash(form.password);
+
+    await prisma.user.create({
+      data: {
+        ...form,
+        password: hashedPassword,
+      },
+    });
+
+    throw redirect(303, "/login");
   },
   zod$({
     name: z.string().nonempty("Name must be required"),
