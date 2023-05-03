@@ -42,6 +42,8 @@
   },
   "dependencies": {
     "@prisma/client": "^4.13.0",
-    "@qwikest/icons": "^0.0.6"
+    "@qwikest/icons": "^0.0.6",
+    "bcrypt": "^5.1.0",
+    "jsonwebtoken": "^9.0.0"
   }
 }
