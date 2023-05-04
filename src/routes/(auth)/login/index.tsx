@@ -41,7 +41,9 @@ export const useLogin = routeAction$(
 
     // add access token in browser cookies
 
-    cookie.set("accessToken", accessToken);
+    cookie.set("accessToken", accessToken, {
+      path: "/",
+    });
 
     // redirect to hoem page
 
