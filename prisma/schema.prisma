@@ -11,10 +11,21 @@ datasource db {
 }
 
 model User {
-  id        String   @id @default(uuid())
-  email     String   @unique
-  name      String
-  password  String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id          String   @id @default(uuid())
+  email       String   @unique
+  name        String
+  password    String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  createdTags Tag[]    @relation(name: "UserTagsCreate")
+}
+
+model Tag {
+  id          String   @id @default(uuid())
+  name        String
+  description String
+  createdBy   User     @relation(name: "UserTagsCreate", fields: [createdById], references: [id])
+  createdById String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
 }
