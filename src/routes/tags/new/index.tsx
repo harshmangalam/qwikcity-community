@@ -1,21 +1,26 @@
 import { component$ } from "@builder.io/qwik";
-import { routeAction$, z, zod$ } from "@builder.io/qwik-city";
+import { Form, routeAction$, z, zod$ } from "@builder.io/qwik-city";
 import { Button } from "~/components/ui/button";
+import { getCurrentUser } from "~/utils/auth";
 
 export const useCreateTag = routeAction$(
-  (form, event) => {},
+  async (form, event) => {
+    const user = await getCurrentUser(event);
+    console.log(user);
+  },
   zod$({
     name: z.string().nonempty("Tag name is required"),
     description: z.string().nonempty("Tag description is required"),
   })
 );
 export default component$(() => {
+  const action = useCreateTag();
   return (
     <div class={"min-h-screen bg-gray-100 grid place-items-center"}>
       <article
         class={"bg-white rounded  p-6 shadow border max-w-sm w-full mx-auto"}
       >
-        <form class={"flex flex-col space-y-2"}>
+        <Form action={action} class={"flex flex-col space-y-2"}>
           <div class={"flex flex-col space-y-2"}>
             <label for="name">Tag Name</label>
             <input type="text" name="name" id="name" class={"w-full"} />
@@ -29,8 +34,8 @@ export default component$(() => {
               class={"w-full"}
             />
           </div>
-          <Button>Create Tag</Button>
-        </form>
+          <Button isLoading={action.isRunning}>Create Tag</Button>
+        </Form>
       </article>
     </div>
   );

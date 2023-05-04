@@ -1,8 +1,8 @@
-import { type RequestEvent } from "@builder.io/qwik-city";
+import { type RequestEventCommon } from "@builder.io/qwik-city";
 import { verifyToken } from "./jwt";
 import { prisma } from "~/lib/prisma";
 
-async function getCurrentUser({ cookie, env, error }: RequestEvent) {
+async function getCurrentUser({ cookie, env, error }: RequestEventCommon) {
   try {
     const token = cookie.get("accessToken");
     if (!token) return error(401, "Unauthenticated");
