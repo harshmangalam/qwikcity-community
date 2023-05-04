@@ -24,6 +24,9 @@ export default component$(() => {
           <div class={"flex flex-col space-y-2"}>
             <label for="name">Tag Name</label>
             <input type="text" name="name" id="name" class={"w-full"} />
+            <span class={"text-sm text-danger"}>
+              {action.value?.fieldErrors?.name}
+            </span>
           </div>
           <div class={"flex flex-col space-y-2"}>
             <label for="description">Tag Description</label>
@@ -33,6 +36,9 @@ export default component$(() => {
               id="description"
               class={"w-full"}
             />
+            <span class={"text-sm text-danger"}>
+              {action.value?.fieldErrors?.description}
+            </span>
           </div>
           <Button isLoading={action.isRunning}>Create Tag</Button>
         </Form>
