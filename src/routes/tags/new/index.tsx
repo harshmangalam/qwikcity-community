@@ -1,6 +1,14 @@
 import { component$ } from "@builder.io/qwik";
+import { routeAction$, z, zod$ } from "@builder.io/qwik-city";
 import { Button } from "~/components/ui/button";
 
+export const useCreateTag = routeAction$(
+  (form, event) => {},
+  zod$({
+    name: z.string().nonempty("Tag name is required"),
+    description: z.string().nonempty("Tag description is required"),
+  })
+);
 export default component$(() => {
   return (
     <div class={"min-h-screen bg-gray-100 grid place-items-center"}>

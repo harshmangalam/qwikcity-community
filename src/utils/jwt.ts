@@ -1,13 +1,13 @@
-import { type JwtPayload, sign, verify } from "jsonwebtoken";
+import { sign, verify } from "jsonwebtoken";
 
 async function verifyToken(
   token: string,
   secret: string
-): Promise<string | JwtPayload> {
+): Promise<{ userId: string }> {
   return new Promise((resolve, reject) => {
     try {
       const payload = verify(token, secret);
-      resolve(payload);
+      resolve(payload as { userId: string });
     } catch (err) {
       reject(err);
     }
