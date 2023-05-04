@@ -1,12 +1,30 @@
 import { component$ } from "@builder.io/qwik";
 import { Form, routeAction$, z, zod$ } from "@builder.io/qwik-city";
 import { Button } from "~/components/ui/button";
+import { prisma } from "~/lib/prisma";
 import { getCurrentUser } from "~/utils/auth";
 
 export const useCreateTag = routeAction$(
   async (form, event) => {
-    const user = await getCurrentUser(event);
-    console.log(user);
+    const [user, error] = await getCurrentUser(event);
+
+    if (error)
+      return event.fail(error.status, {
+        message: error.message,
+      });
+
+    if (!user)
+      return event.fail(400, {
+        message: "User not found",
+      });
+    await prisma.tag.create({
+      data: {
+        ...form,
+        createdById: user.id,
+      },
+    });
+
+    throw event.redirect(303, "/tags");
   },
   zod$({
     name: z.string().nonempty("Tag name is required"),
