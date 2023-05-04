@@ -18,7 +18,7 @@ export const TagCard = component$((props: TagCardProps) => {
         <Link
           href={`/questions/tagged/${id}`}
           class={
-            "bg-blue-100 hover:bg-blue-100/70 text-blue-800 text-sm px-2 py-1 rounded"
+            "font-medium bg-accent-subtle hover:bg-accent-emphasis text-accent-fg hover:text-white text-xs px-2 py-1 rounded"
           }
         >
           {name}
