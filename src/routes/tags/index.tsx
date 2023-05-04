@@ -1,8 +1,14 @@
 import { component$ } from "@builder.io/qwik";
 import { TagCard } from "./tag-card";
-import { Link } from "@builder.io/qwik-city";
+import { Link, routeLoader$ } from "@builder.io/qwik-city";
+import { prisma } from "~/lib/prisma";
 
+export const useTags = routeLoader$(async () => {
+  const tags = await prisma.tag.findMany();
+  return tags;
+});
 export default component$(() => {
+  const tagSignal = useTags();
   return (
     <div class={"min-h-screen bg-gray-100"}>
       <div class={"max-w-5xl w-full mx-auto py-6"}>
@@ -24,9 +30,9 @@ export default component$(() => {
             "grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4"
           }
         >
-          {[...new Array(10)].map((tag) => (
-            <li key={tag}>
-              <TagCard />
+          {tagSignal.value.map((tag) => (
+            <li key={tag.id} class={"h-full"}>
+              <TagCard {...tag} />
             </li>
           ))}
         </ul>
